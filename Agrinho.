@@ -1,0 +1,77 @@
+const ruralTips = [
+    {
+        title: "Prevenção de Incêndios Florestais 🔥",
+        description: "Mantenha aceiros limpos ao redor de propriedades e plantações. Evite jogar bitucas de cigarro. Cuidado com queimadas controladas, sempre com autorização e supervisão. Tenha equipamentos básicos para combate a pequenos focos de incêndio."
+    },
+    {
+        title: "Segurança de Propriedades 🔒",
+        description: "Instale cercas e portões resistentes. Considere sistemas de monitoramento (câmeras, alarmes). Mantenha ferramentas e equipamentos guardados sob chave. Registre visitantes e veículos estranhos na região."
+    },
+    {
+        title: "Manejo de Animais e Pragas 🐄🌾",
+        description: "Vacinacão e acompanhamento veterinário para o rebanho. Monitore sinais de doenças. Implemente medidas para controle de pragas agrícolas (insetos, roedores) de forma sustentável, evitando desequilíbrios ecológicos."
+    },
+    {
+        title: "Uso Seguro de Máquinas e Ferramentas 🚜",
+        description: "Sempre utilize equipamentos de proteção individual (EPIs). Realize manutenção preventiva em máquinas agrícolas. Garanta que apenas operadores qualificados e treinados manuseiem os equipamentos mais complexos."
+    },
+    {
+        title: "Conservação do Solo e Água 🌱💧",
+        description: "Pratique o plantio direto e a rotação de culturas para proteger o solo. Gerencie o uso da água de forma consciente, evitando desperdício. Mantenha as matas ciliares (vegetação nas margens de rios) preservadas."
+    },
+    {
+        title: "Primeiros Socorros e Emergências 🩹🚨",
+        description: "Tenha um kit de primeiros socorros completo e acessível. Conheça os telefones de emergência locais (bombeiros, polícia, atendimento médico). Saiba como agir em casos de acidentes com animais peçonhentos."
+    },
+    {
+        title: "Conscientização da Comunidade 🤝",
+        description: "Participe de grupos de vizinhança solidária. Compartilhe informações sobre segurança. Incentive a comunicação entre os moradores para identificar e reportar atividades suspeitas. A união faz a força!"
+    }
+];
+
+let currentIndex = 0;
+
+const infoDisplay = document.getElementById('info-display');
+const prevBtn = document.getElementById('prev-btn');
+const nextBtn = document.getElementById('next-btn');
+
+function displayTip(index) {
+    // Adiciona uma classe para iniciar a animação de "saída"
+    infoDisplay.classList.add('fading-out');
+
+    // Espera a animação de saída terminar antes de mudar o conteúdo
+    setTimeout(() => {
+        const tip = ruralTips[index];
+        infoDisplay.innerHTML = `
+            <h2>${tip.title}</h2>
+            <p>${tip.description}</p>
+        `;
+        // Remove a classe para iniciar a animação de "entrada"
+        infoDisplay.classList.remove('fading-out');
+    }, 300); // Tempo da transição CSS
+}
+
+// Estilo para a animação de fade
+const style = document.createElement('style');
+style.innerHTML = `
+    .fading-out {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+`;
+document.head.appendChild(style);
+
+
+// Event Listeners para os botões de navegação
+nextBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % ruralTips.length;
+    displayTip(currentIndex);
+});
+
+prevBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + ruralTips.length) % ruralTips.length;
+    displayTip(currentIndex);
+});
+
+// Exibir a primeira dica ao carregar a página
+displayTip(currentIndex);
